@@ -52,18 +52,15 @@ def expected_value_for_dd(scores_dict, desired_dd):
             weighted_sum += score * (frequency_dict[score])
     return weighted_sum/len(scores_dict[desired_dd])
 
-
 for i in range(26):
-    display_dd = round(1.6 + (i/10), 1)
+    display_dd = round(1.6 + (i/10), 1)  
     #print(dd_scores_dict[display_dd]) 
     if (display_dd not in dd_scores_dict):
         print("No dives done with DD of " + str(display_dd))
     else:
-       # print("PRINTING MEET HISTORY FOR DIVES WITH " + str(display_dd) + " DEGREE OF DIFFICULTY")
-       print(str(len(dd_scores_dict[display_dd]))+ " dives have been done with DD " + str(display_dd))
+       print("PRINTING MEET HISTORY FOR DIVES WITH " + str(display_dd) + " DEGREE OF DIFFICULTY")
+       #print(str(len(dd_scores_dict[display_dd]))+ " dives have been done with DD " + str(display_dd))
        # print("Minimum value is " + str(min(dd_scores_dict[display_dd])))
        # print("Maximum value is " + str(max(dd_scores_dict[display_dd])))
-       print(str(expected_value_for_dd(dd_scores_dict, display_dd)))
+       #print(str(expected_value_for_dd(dd_scores_dict, display_dd)))
        #print("Expected value for " + str(display_dd) + " is " + str(expected_value_for_dd(dd_scores_dict, display_dd)))
-       
-

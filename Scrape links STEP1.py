@@ -1,8 +1,19 @@
+"""
+This file takes in a divemeets url to the "all results" tab on the landing page for a competition
+it will return a CSV file to the "filename" variable that contains the names of each diver, their
+place, and their final score. 
+
+
+Divemeets links the detailed score information on the number for final score, and that link is added
+to the end of the diver information. 
+
+After this process finishes, run the "Get scores from links" script on the file that was just created.
+"""
 import requests
 from bs4 import BeautifulSoup
 import csv
 
-#MUST BE THE eventnum=all URL FOR THE MEET, CLICK "ALL RESULTS"
+#MUST BE THE eventnum=all URL FOR THE MEET, CLICK "ALL RESULTS" on divemeets
 results_all_url = 'https://secure.meetcontrol.com/divemeets/system/eventresultsext.php?meetnum=8961&eventnum=all'
 
 #get request

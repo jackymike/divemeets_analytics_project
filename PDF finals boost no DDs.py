@@ -6,9 +6,9 @@ import matplotlib.ticker as ticker
 from scipy.stats import norm
 
 # DIRECTORIES TO FOLDERS CONTAINING CLEANED .csv Dive score files
-input_dir_finals = 'US Nationals and Olympic Trials/Events Split/Scores/Cleaned/Finals'
-input_dir_semis = 'US Nationals and Olympic Trials/Events Split/Scores/Cleaned/Semifinals'
-input_dir_prelims = 'US Nationals and Olympic Trials/Events Split/Scores/Cleaned/Prelims'
+input_dir_finals = 'US Nationals and Olympic Trials/Events Split/Scores/Cleaned and Truncated/Finals'
+input_dir_semis = 'US Nationals and Olympic Trials/Events Split/Scores/Cleaned and Truncated/Semifinals'
+input_dir_prelims = 'US Nationals and Olympic Trials/Events Split/Scores/Cleaned and Truncated/Prelims'
 
 #output lists
 finals_scores_list = []
@@ -68,7 +68,9 @@ prelims_pdf_values = norm.pdf(prelims_points, prelims_mean, prelims_std)
 
 #plotting
 plt.figure(figsize=(10, 6))  
-
+plt.hist(finals_scores_list, bins=30, density=True, alpha=0.3, color='b', label='Finals Scores')
+plt.hist(semis_scores_list, bins=30, density=True, alpha=0.3, color='g', label='Semifinals Scores')
+plt.hist(prelims_scores_list, bins=30, density=True, alpha=0.3, color='r', label='Semifinals Scores')
 plt.plot(finals_points, finals_pdf_values, label='Finals', color='blue')
 plt.plot(semis_points, semis_pdf_values, label='Semifinals', color='green')
 plt.plot(prelims_points, prelims_pdf_values, label='Preliminaries', color='red')
@@ -77,7 +79,7 @@ plt.scatter(finals_mean, norm.pdf(finals_mean, finals_mean, finals_std), color='
 plt.scatter(semis_mean, norm.pdf(semis_mean, semis_mean, semis_std), color='green', zorder=5)
 plt.scatter(prelims_mean, norm.pdf(prelims_mean, prelims_mean, prelims_std), color='red', zorder=5)
 
-plt.title('Judge Scores PDF for US Nationals - Finals vs. Semifinals vs. Preliminaries')
+plt.title('Judge Scores PDF for US Nationals - Finals vs. Semifinals vs. Preliminaries - Top 12 Performers Only')
 plt.xlabel('Judge Scores')
 plt.ylabel('Probability Density')
 plt.legend() 

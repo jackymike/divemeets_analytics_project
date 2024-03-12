@@ -1,5 +1,6 @@
 import csv
 import os
+from cycler import cycler
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
@@ -27,7 +28,7 @@ def add_scores_to_dict(file_path, scores_dict):
                 try:
                     dd = float(dd)
                     score = float(score)
-                    if 3.0 <= dd <= 3.9:
+                    if 3.0 <= dd <= 3.9 and dd != 4.0:
                         scores_dict.setdefault(dd, []).append(score)
                 except ValueError:
                     continue
@@ -41,22 +42,26 @@ for filename in os.listdir(input_dir):
 
 # plotting PDF for each DD
 plt.figure(figsize=(10, 6)) 
-
-for dd, scores in dd_scores_dict.items():
+colors = plt.colormaps.get_cmap('viridis').resampled(len(dd_scores_dict.items())).colors
+color = colors[0]
+i = 0
+for dd, scores in sorted(dd_scores_dict.items()):
     # mean and standard deviation for scores
     mean = np.mean(scores)
-    std = np.std(scores, ddof=1) if len(scores) > 1 else 0  # Use ddof=1 for sample std; if only one score, std is 0
+    std = np.std(scores, ddof=1)
     
     # generate points on x-axis between min and max scores
     x = np.linspace(mean - 3*std, mean + 3*std, 100) if std != 0 else np.linspace(mean - 1, mean + 1, 100)
     
     # pdf value for each point
     pdf = norm.pdf(x, mean, std) if std != 0 else np.full_like(x, 1)  # If std is 0, all pdf values are 1
-    
-    # plotting
-    plt.scatter(mean, norm.pdf(mean, mean, std), zorder=5)
-    plt.plot(x, pdf, label=f'DD {dd}')
 
+    # plotting
+    plt.scatter(mean, norm.pdf(mean, mean, std), zorder=5, color = color)
+    plt.plot(x, pdf, label=f'DD {dd}', color = color)
+    color = colors[i]
+    i = (i + 1)%20
+    
 
 # plotting
 plt.title('Probability Density Function of Dive Scores by Degree of Difficulty')

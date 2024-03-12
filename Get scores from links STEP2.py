@@ -1,4 +1,16 @@
+"""
+Divemeets' organization is weird, so I needed to use two scripts in order to getrequest the data and have
+it in an analyze-able fashion. 
 
+
+Synchronized competitions, dive changes, and other weird quirks that are represented in divemeets make the 
+CSV file that this program outputs very messy. After this program finishes, use the "Clean CSVs" script
+on the files that you have made. 
+
+
+Additionally, my web-scraping is not very efficient, so this program can take a while to run if 
+you are running it on multiple files or one large meet. 
+"""
 import os
 import csv
 import requests
